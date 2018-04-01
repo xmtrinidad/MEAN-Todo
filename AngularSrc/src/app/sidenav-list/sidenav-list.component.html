@@ -1,0 +1,12 @@
+<mat-nav-list>
+  <ng-container *ngFor="let sideNavOption of sideNavOptions">
+    <a
+        *ngIf="authService.loggedIn() === sideNavOption.loggedOut"
+        (click)="onSideNavOptionClick(sideNavOption)"
+        [routerLink]="sideNavOption.link"
+        mat-list-item>
+      <mat-icon mat-list-icon>{{sideNavOption.icon}}</mat-icon>
+      <h4 mat-line>{{sideNavOption.name}}</h4>
+    </a>
+  </ng-container>
+</mat-nav-list>

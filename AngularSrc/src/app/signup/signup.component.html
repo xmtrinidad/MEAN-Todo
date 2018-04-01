@@ -1,0 +1,24 @@
+<form [formGroup]="signupForm" class="signup-form" (submit)="onFormSubmit()">
+  <mat-form-field class="full-width">
+    <input
+      formControlName="username"
+      type="text"
+      matInput
+      placeholder="Username">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input
+      formControlName="email"
+      type="email"
+      matInput
+      placeholder="Email">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input
+      formControlName="password"
+      type="password"
+      matInput
+      placeholder="Password">
+  </mat-form-field>
+  <button type="submit" mat-button color="accent">Submit</button>
+</form>
