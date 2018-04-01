@@ -1,5 +1,10 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+/** Center Element **/
+.text-center {
+  text-align: center;
+}
+
 /** Bootstrap style container **/
 .container {
     padding-right: 15px;

@@ -18,7 +18,9 @@ import {
   MatInputModule,
   MatSidenavModule,
   MatToolbarModule,
-  MatListModule
+  MatListModule,
+  MatCardModule,
+  MatDividerModule
 } from '@angular/material';
 
 import { AuthService } from './services/auth.service';
@@ -63,7 +65,9 @@ import { CreateTodoComponent } from './create-todo/create-todo.component';
     MatInputModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
+    MatCardModule,
+    MatDividerModule
   ],
   providers: [AuthService, NavService, ValidateService],
   bootstrap: [AppComponent]

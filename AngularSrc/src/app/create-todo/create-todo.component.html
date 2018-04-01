@@ -1,3 +1,30 @@
-<p>
-  create-todo works!
-</p>
+<div class="Create-todo">
+  <mat-card>
+
+    <form class="example-form">
+      <mat-form-field class="full-width">
+        <input name="title" [(ngModel)]="title" matInput placeholder="Todo list title">
+      </mat-form-field>
+      <mat-card-content>
+        <mat-list>
+          <div class="todo-inputs" *ngIf="todoItems">
+            <mat-form-field *ngFor="let todoItem of todoItems; let i = index" class="full-width">
+              <input [(ngModel)]="todoItem.task" name="item_{{i}}" matInput placeholder="Todo #{{i+1}}">
+            </mat-form-field>
+          </div>
+          <div style="text-align: center;">
+            <button color="accent" (click)="onAddItem()" mat-raised-button>
+              <mat-icon>add</mat-icon>
+              Add item
+            </button>
+          </div>
+        </mat-list>
+      </mat-card-content>
+      <mat-card-actions>
+        <button (click)="onCreateTodoList()" mat-button color="accent">Create</button>
+        <button mat-button color="warn">Cancel</button>
+      </mat-card-actions>
+    </form>
+
+  </mat-card>
+</div>
