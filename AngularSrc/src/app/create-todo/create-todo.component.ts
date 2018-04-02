@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ValidateService } from '../services/validate.service';
 import { Todo } from '../models/todo';
 
 @Component({
@@ -7,43 +8,95 @@ import { Todo } from '../models/todo';
   styleUrls: ['./create-todo.component.css']
 })
 export class CreateTodoComponent implements OnInit {
-  todoItems: {task: string, completed: boolean}[] = [];
-  title: string;
-  task: string;
-  constructor() { }
+  // View child used here to get selection list to reset checkbox later
+  @ViewChild('selectionList') selectionList;
+  title = '';
+  task = '';
+  isEdit = false;
+  itemToEditIndex: number;
+  todoItem: {task: string, completed: boolean} = {
+    task: '', completed: false
+  };
+  // Temporary mock data
+  todoItems: {task: string, completed: boolean}[] = [
+    { task: 'Test task 1', completed: false},
+    { task: 'Test task 2', completed: false},
+    { task: 'Test task 3', completed: false}
+  ];
+
+
+  constructor(private validateService: ValidateService) { }
 
   ngOnInit() {
   }
 
-  // Add items to the todoItems array
-  onAddItem() {
-    const todoItem: {task: string, completed: boolean} = {
-      task: this.task, completed: false
-    };
-    this.todoItems.push(todoItem);
+  //  Detect item selected and disable other items to edit
+  onTodoItemSelected(e, index) {
+    if (index === this.itemToEditIndex) {
+      this.resetEditStatus();
+      return;
+    }
+    this.setEditStatus(index);
   }
 
-  // Create a list
-  onCreateTodoList() {
-    const todoList: Todo = {
-      title: this.title,
-      items: this.removeEmptyTaskTodos(this.todoItems)
-    };
-    console.log(todoList);
-    this.clearTodoListFormFields();
-    // TODO add flash message with link to go to list page
+  // Set the item being edited
+  setEditStatus(index: number) {
+    this.isEdit = true;
+    this.itemToEditIndex = index;
+    this.task = this.todoItems[this.itemToEditIndex].task;
   }
 
   /**
-   * Remove any items that don't have a task defined or is white space
+   * If item is being edited, item is found in array and task is set
+   * else a new item is pushed onto the todoList
    */
-  removeEmptyTaskTodos(items) {
-    return items.filter(item => item.task && item.task.trim());
+  onTodoSubmit() {
+    if (this.isEdit) {
+      this.todoItems[this.itemToEditIndex].task = this.task;
+      this.resetEditStatus();
+    } else {
+      this.todoItem.task = this.task;
+      this.todoItems.push(this.todoItem);
+      this.resetEditStatus();
+    }
   }
 
-  clearTodoListFormFields() {
+  onTodoClear() {
+    this.task = '';
+  }
+
+  onTodoDelete() {
+    this.todoItems.splice(this.itemToEditIndex, 1);
+    this.resetEditStatus();
+  }
+
+  onTodoListCancel() {
     this.todoItems = [];
-    this.title = null;
-    this.task = null;
+  }
+
+  onCreateTodoList() {
+    const todoList: Todo = {
+      title: this.title,
+      items: this.todoItems
+    };
+    console.log(todoList);
+    this.resetTodoList()
+  }
+
+  // Reset the list checkboxes, edit status and index
+  resetEditStatus() {
+    this.itemToEditIndex = undefined;
+    this.isEdit = false;
+    this.task = '';
+    this.todoItem = { task: '', completed: false };
+    this.selectionList.deselectAll();
+  }
+
+  // Reset todoList form with success message
+  resetTodoList() {
+    this.validateService.formSubmitMessage('Todo list created!', 'success');
+    this.todoItems = [];
+    this.title = '';
+    this.task = '';
   }
 }

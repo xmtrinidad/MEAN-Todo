@@ -1,3 +1,5 @@
-mat-card-actions {
-  margin-bottom: 0;
+
+
+.Create-todo__buttons button:last-child {
+  float: right;
 }

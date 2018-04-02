@@ -1,30 +1,40 @@
 <div class="Create-todo">
   <mat-card>
-
-    <form class="example-form">
-      <mat-form-field class="full-width">
-        <input name="title" [(ngModel)]="title" matInput placeholder="Todo list title">
-      </mat-form-field>
+    <form>
+      <mat-card-title>
+        <mat-form-field class="full-width Create-todo__title-input">
+          <input [(ngModel)]="title" name="title" matInput placeholder="Todo List title">
+        </mat-form-field>
+      </mat-card-title>
       <mat-card-content>
-        <mat-list>
-          <div class="todo-inputs" *ngIf="todoItems">
-            <mat-form-field *ngFor="let todoItem of todoItems; let i = index" class="full-width">
-              <input [(ngModel)]="todoItem.task" name="item_{{i}}" matInput placeholder="Todo #{{i+1}}">
-            </mat-form-field>
-          </div>
-          <div style="text-align: center;">
-            <button color="accent" (click)="onAddItem()" mat-raised-button>
-              <mat-icon>add</mat-icon>
-              Add item
-            </button>
-          </div>
-        </mat-list>
+        <mat-selection-list #selectionList>
+          <mat-list-option
+            [disabled]="isEdit && itemToEditIndex !== i"
+            (selectionChange)="onTodoItemSelected($event, i)"
+            *ngFor="let item of todoItems; let i = index">
+            {{item.task}}
+          </mat-list-option>
+        </mat-selection-list>
+
+        <mat-form-field class="full-width">
+          <input [(ngModel)]="task" name="task" matInput placeholder="Todo" [value]="isEdit ? todoItem.task : ''">
+        </mat-form-field>
+        <div class="Create-todo__buttons">
+          <button (click)="onTodoSubmit()" mat-icon-button>
+            <mat-icon aria-label="check icon" color="primary">check</mat-icon>
+          </button>
+          <button (click)="onTodoClear()" mat-icon-button>
+            <mat-icon aria-label="close icon">close</mat-icon>
+          </button>
+          <button [disabled]="!isEdit" (click)="onTodoDelete()" mat-icon-button color="warn">
+            <mat-icon aria-label="close icon">delete</mat-icon>
+          </button>
+        </div>
       </mat-card-content>
       <mat-card-actions>
-        <button (click)="onCreateTodoList()" mat-button color="accent">Create</button>
-        <button mat-button color="warn">Cancel</button>
+        <button (click)="onCreateTodoList()" mat-raised-button color="accent">Create List</button>
+        <button (click)="onTodoListCancel()" mat-button color="warn">Cancel</button>
       </mat-card-actions>
     </form>
-
   </mat-card>
 </div>
