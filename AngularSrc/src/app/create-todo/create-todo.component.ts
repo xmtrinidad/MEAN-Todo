@@ -27,11 +27,18 @@ export class CreateTodoComponent implements OnInit {
   onCreateTodoList() {
     const todoList: Todo = {
       title: this.title,
-      items: this.todoItems
+      items: this.removeEmptyTaskTodos(this.todoItems)
     };
     console.log(todoList);
     this.clearTodoListFormFields();
     // TODO add flash message with link to go to list page
+  }
+
+  /**
+   * Remove any items that don't have a task defined or is white space
+   */
+  removeEmptyTaskTodos(items) {
+    return items.filter(item => item.task && item.task.trim());
   }
 
   clearTodoListFormFields() {
