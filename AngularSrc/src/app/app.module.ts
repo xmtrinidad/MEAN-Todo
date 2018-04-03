@@ -34,6 +34,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidenavListComponent } from './sidenav-list/sidenav-list.component';
 import { ValidateService } from './services/validate.service';
 import { CreateTodoComponent } from './create-todo/create-todo.component';
+import { CreateTodoService } from './services/create-todo.service';
 
 
 @NgModule({
@@ -69,7 +70,7 @@ import { CreateTodoComponent } from './create-todo/create-todo.component';
     MatCardModule,
     MatDividerModule
   ],
-  providers: [AuthService, NavService, ValidateService],
+  providers: [AuthService, NavService, ValidateService, CreateTodoService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

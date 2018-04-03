@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ValidateService } from '../services/validate.service';
 import { Todo } from '../models/todo';
+import { CreateTodoService } from '../services/create-todo.service';
 
 @Component({
   selector: 'app-create-todo',
@@ -13,89 +14,79 @@ export class CreateTodoComponent implements OnInit {
   title = '';
   task = '';
   isEdit = false;
-  itemToEditIndex: number;
-  todoItem: {task: string, completed: boolean} = {
-    task: '', completed: false
-  };
-  // Temporary mock data
-  todoItems: {task: string, completed: boolean}[] = [
-    { task: 'Test task 1', completed: false},
-    { task: 'Test task 2', completed: false},
-    { task: 'Test task 3', completed: false}
-  ];
+  todoItems: { task: string, completed: boolean }[];
 
 
-  constructor(private validateService: ValidateService) { }
+  constructor(
+    public createTodoService: CreateTodoService,
+    private validateService: ValidateService) {
+  }
 
+  // Initialize todoItems
   ngOnInit() {
+    this.todoItems = this.createTodoService.getTodoItems();
   }
 
   //  Detect item selected and disable other items to edit
-  onTodoItemSelected(e, index) {
-    if (index === this.itemToEditIndex) {
+  onTodoItemSelected(clickedIndex) {
+    if (clickedIndex === this.createTodoService.getEditIndex()) {
       this.resetEditStatus();
       return;
     }
-    this.setEditStatus(index);
+    this.setEditStatus(clickedIndex);
   }
 
   // Set the item being edited
   setEditStatus(index: number) {
     this.isEdit = true;
-    this.itemToEditIndex = index;
-    this.task = this.todoItems[this.itemToEditIndex].task;
+    this.task = this.createTodoService.getItemToEdit(index);
   }
 
-  /**
-   * If item is being edited, item is found in array and task is set
-   * else a new item is pushed onto the todoList
-   */
+  // Check if edit, update todoListItem or add new todoItem
   onTodoSubmit() {
-    if (this.isEdit) {
-      this.todoItems[this.itemToEditIndex].task = this.task;
-      this.resetEditStatus();
-    } else {
-      this.todoItem.task = this.task;
-      this.todoItems.push(this.todoItem);
-      this.resetEditStatus();
-    }
+    this.isEdit ?
+      this.createTodoService.editTodo(this.task) :
+      this.createTodoService.addTodo(this.task);
+    this.resetEditStatus();
   }
 
+  // Clear input field
   onTodoClear() {
     this.task = '';
   }
 
+  // Delete todoItem and reset edit status
   onTodoDelete() {
-    this.todoItems.splice(this.itemToEditIndex, 1);
+    this.createTodoService.deleteTodo();
     this.resetEditStatus();
   }
 
+  // Reset entire todoList
   onTodoListCancel() {
-    this.todoItems = [];
+    this.createTodoService.resetList();
   }
+
 
   onCreateTodoList() {
     const todoList: Todo = {
       title: this.title,
       items: this.todoItems
     };
-    console.log(todoList);
-    this.resetTodoList()
+    this.createTodoService.createList(todoList);
+    this.resetListInputs()
   }
 
   // Reset the list checkboxes, edit status and index
   resetEditStatus() {
-    this.itemToEditIndex = undefined;
     this.isEdit = false;
     this.task = '';
-    this.todoItem = { task: '', completed: false };
+    this.createTodoService.resetEditIndex();
     this.selectionList.deselectAll();
   }
 
   // Reset todoList form with success message
-  resetTodoList() {
+  resetListInputs() {
     this.validateService.formSubmitMessage('Todo list created!', 'success');
-    this.todoItems = [];
     this.title = '';
     this.task = '';
   }
