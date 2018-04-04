@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 const User = require('../models/user');
 const user_controller = require('../controllers/userController');
 
@@ -40,6 +41,10 @@ router.post('/authenticate', (req, res, next) => {
             }
         });
     });
+});
+
+router.get('/dashboard', passport.authenticate('jwt', {session: false}), (req, res) => {
+    res.json({user: req.user});
 });
 
 module.exports = router;

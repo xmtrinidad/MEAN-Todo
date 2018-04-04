@@ -27,6 +27,11 @@ mongoose.connection.on('error', (err) => {
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
+// Passport
+require('./config/passport')(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 // Use Routes
 app.use('/user', userRoutes);
