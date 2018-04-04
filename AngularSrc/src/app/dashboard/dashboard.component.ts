@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.getUserDashboard().subscribe((userData: any) => this.todos = userData.todos);
+    this.authService.getUserDashboard().subscribe((data: any) => this.todos = data.user.todos);
   }
 
 }

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Todo } from '../models/todo';
+import { ValidateService } from './validate.service';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class CreateTodoService {
@@ -13,7 +15,9 @@ export class CreateTodoService {
     { task: 'Test task 2', completed: false},
     { task: 'Test task 3', completed: false}
   ];
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private validateService: ValidateService) { }
 
   getTodoItems() {
     return this.todoItems;
@@ -49,7 +53,8 @@ export class CreateTodoService {
   }
 
   createList(todoList: Todo) {
-    console.log(todoList);
+    this.authService.addUserTodo(todoList).subscribe(data => console.log(data));
+    this.validateService.formSubmitMessage('Todo list created!', 'success');
     this.resetList();
   }
 

@@ -4,16 +4,14 @@
 
       <!-- todoList Title -->
       <mat-card-title>
-        My Todo List Title
+        {{ todo.title }}
       </mat-card-title>
       <!-- /todoList Title -->
 
       <mat-card-content>
         <!-- todoItems -->
-        <mat-selection-list #selectionList>
-          <mat-list-option>My Todo Task 1</mat-list-option>
-          <mat-list-option>My Todo Task 2</mat-list-option>
-          <mat-list-option>My Todo Task 3</mat-list-option>
+        <mat-selection-list>
+          <mat-list-option *ngFor="let todoItem of todo.items">{{ todoItem.task }}</mat-list-option>
         </mat-selection-list>
         <!-- /todoItems -->
       </mat-card-content>

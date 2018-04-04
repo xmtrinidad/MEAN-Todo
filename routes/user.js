@@ -43,6 +43,19 @@ router.post('/authenticate', (req, res, next) => {
     });
 });
 
+router.post('/add-todo', passport.authenticate('jwt', {session: false}), (req, res) => {
+    const username = req.body.user;
+    user_controller.getUserByUsername(username, (err, user) => {
+        if (err) throw err;
+        const todoList = {
+            title: req.body.todo.title,
+            items: req.body.todo.items,
+        };
+        user.todos.push(todoList);
+        user.save();
+    });
+});
+
 router.get('/dashboard', passport.authenticate('jwt', {session: false}), (req, res) => {
     res.json({user: req.user});
 });

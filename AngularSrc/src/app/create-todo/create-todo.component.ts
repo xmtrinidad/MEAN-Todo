@@ -81,7 +81,6 @@ export class CreateTodoComponent implements OnInit {
       items: this.todoItems
     };
     this.createTodoService.createList(todoList);
-    this.validateService.formSubmitMessage('Todo list created!', 'success');
     this.resetListInputs();
     this.resetEditStatus();
     this.todoItems = this.createTodoService.getTodoItems();

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Todo } from '../models/todo';
 
 @Injectable()
 export class AuthService {
@@ -35,6 +36,18 @@ export class AuthService {
     return this.http.get('http://localhost:3000/user/dashboard', {headers: headers});
   }
 
+  addUserTodo(todo: Todo) {
+    this.loadToken();
+    this.loadUser();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.authToken
+    });
+    return this.http.post(
+      'http://localhost:3000/user/add-todo',
+      {user: this.user.username, todo: todo}, {headers: headers})
+  }
+
   storeUserData(token, user) {
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));
@@ -48,6 +61,10 @@ export class AuthService {
 
   loadToken() {
     this.authToken = localStorage.getItem('id_token');
+  }
+
+  loadUser() {
+    this.user = JSON.parse(localStorage.getItem('user'));
   }
 
   logout() {
