@@ -44,9 +44,13 @@ export class CreateTodoComponent implements OnInit {
 
   // Check if edit, update todoListItem or add new todoItem
   onTodoSubmit() {
-    this.isEdit ?
-      this.createTodoService.editTodo(this.task) :
+    if (this.task === '') {
+      this.onTodoDelete();
+    } else if (this.isEdit) {
+      this.createTodoService.editTodo(this.task);
+    } else {
       this.createTodoService.addTodo(this.task);
+    }
     this.resetEditStatus();
   }
 
@@ -64,16 +68,23 @@ export class CreateTodoComponent implements OnInit {
   // Reset entire todoList
   onTodoListCancel() {
     this.createTodoService.resetList();
+    this.todoItems = this.createTodoService.getTodoItems();
+    this.resetListInputs();
+    this.resetEditStatus();
   }
 
 
   onCreateTodoList() {
+    // Create list
     const todoList: Todo = {
       title: this.title,
       items: this.todoItems
     };
     this.createTodoService.createList(todoList);
-    this.resetListInputs()
+    this.validateService.formSubmitMessage('Todo list created!', 'success');
+    this.resetListInputs();
+    this.resetEditStatus();
+    this.todoItems = this.createTodoService.getTodoItems();
   }
 
   // Reset the list checkboxes, edit status and index
@@ -84,9 +95,8 @@ export class CreateTodoComponent implements OnInit {
     this.selectionList.deselectAll();
   }
 
-  // Reset todoList form with success message
+
   resetListInputs() {
-    this.validateService.formSubmitMessage('Todo list created!', 'success');
     this.title = '';
     this.task = '';
   }

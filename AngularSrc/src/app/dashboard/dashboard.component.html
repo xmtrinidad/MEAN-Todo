@@ -1,3 +1,34 @@
-<div class="Dashboard">
-  <h1>Dashboard: Show Todos here</h1>
+<div class="Create-todo">
+  <mat-card>
+    <form>
+
+      <!-- todoList Title -->
+      <mat-card-title>
+        My Todo List Title
+      </mat-card-title>
+      <!-- /todoList Title -->
+
+      <mat-card-content>
+
+        <!-- todoItems -->
+        <mat-selection-list #selectionList>
+          <mat-list-option>My Todo Task 1</mat-list-option>
+          <mat-list-option>My Todo Task 2</mat-list-option>
+          <mat-list-option>My Todo Task 3</mat-list-option>
+        </mat-selection-list>
+        <!-- /todoItems -->
+
+      </mat-card-content>
+
+
+      <mat-card-actions>
+
+        <!-- todoList buttons -->
+        <button mat-raised-button color="accent">Edit List</button>
+        <!-- /todoList buttons -->
+
+      </mat-card-actions>
+    </form>
+  </mat-card>
 </div>
+

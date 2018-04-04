@@ -39,7 +39,7 @@
         <!-- /todoItem input -->
 
         <!-- todoItem buttons -->
-        <div class="Create-todo__buttons">
+        <div class="Create-todo__buttons" *ngIf="task.trim() !== '' || isEdit">
           <button (click)="onTodoSubmit()" mat-icon-button>
             <mat-icon aria-label="check icon" color="primary">check</mat-icon>
           </button>
@@ -58,7 +58,9 @@
       <mat-card-actions>
 
         <!-- todoList buttons -->
-        <button (click)="onCreateTodoList()" mat-raised-button color="accent">Create List</button>
+        <button
+          [disabled]="title.trim() === '' || todoItems.length === 0"
+          (click)="onCreateTodoList()" mat-raised-button color="accent">Create List</button>
         <button (click)="onTodoListCancel()" mat-button color="warn">Cancel</button>
         <!-- /todoList buttons -->
 
