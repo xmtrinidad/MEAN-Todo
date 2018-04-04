@@ -1,5 +1,5 @@
 <div class="Create-todo">
-  <mat-card>
+  <mat-card *ngFor="let todo of todos">
     <form>
 
       <!-- todoList Title -->
@@ -9,7 +9,6 @@
       <!-- /todoList Title -->
 
       <mat-card-content>
-
         <!-- todoItems -->
         <mat-selection-list #selectionList>
           <mat-list-option>My Todo Task 1</mat-list-option>
@@ -17,16 +16,12 @@
           <mat-list-option>My Todo Task 3</mat-list-option>
         </mat-selection-list>
         <!-- /todoItems -->
-
       </mat-card-content>
 
-
       <mat-card-actions>
-
         <!-- todoList buttons -->
         <button mat-raised-button color="accent">Edit List</button>
         <!-- /todoList buttons -->
-
       </mat-card-actions>
     </form>
   </mat-card>

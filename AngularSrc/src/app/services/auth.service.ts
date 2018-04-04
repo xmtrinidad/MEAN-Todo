@@ -26,6 +26,15 @@ export class AuthService {
     return this.http.post('http://localhost:3000/user/authenticate', user, {headers: headers});
   }
 
+  getUserDashboard() {
+    this.loadToken();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.authToken
+    });
+    return this.http.get('http://localhost:3000/user/dashboard', {headers: headers});
+  }
+
   storeUserData(token, user) {
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));
@@ -35,6 +44,10 @@ export class AuthService {
 
   loggedIn() {
     return this.jwtHelper.isTokenExpired();
+  }
+
+  loadToken() {
+    this.authToken = localStorage.getItem('id_token');
   }
 
   logout() {

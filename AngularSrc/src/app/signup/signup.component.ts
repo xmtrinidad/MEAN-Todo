@@ -22,10 +22,7 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit() {
-    // If user has an active token, redirect to dashboard when app loads
-    if (!this.authService.loggedIn()) {
-      this.router.navigate(['/dashboard']);
-    }
+
   }
 
   createForm() {

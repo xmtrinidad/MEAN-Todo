@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { Todo } from '../models/todo';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  todos: Todo[];
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.getUserDashboard().subscribe((userData: any) => this.todos = userData.todos);
   }
 
 }
