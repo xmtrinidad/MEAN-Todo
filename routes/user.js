@@ -47,12 +47,7 @@ router.post('/add-todo', passport.authenticate('jwt', {session: false}), (req, r
     const username = req.body.user;
     user_controller.getUserByUsername(username, (err, user) => {
         if (err) throw err;
-        const todoList = {
-            title: req.body.todo.title,
-            items: req.body.todo.items,
-        };
-        user.todos.push(todoList);
-        user.save();
+        user_controller.saveUserTodoList(user, req);
     });
 });
 
