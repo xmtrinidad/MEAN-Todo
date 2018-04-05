@@ -1,5 +1,5 @@
 <div class="Todos">
-  <mat-card *ngFor="let todo of todos">
+  <mat-card *ngFor="let todo of todos; let i = index">
     <form>
 
       <!-- todoList Title -->
@@ -19,6 +19,7 @@
       <mat-card-actions>
         <!-- todoList buttons -->
         <button mat-raised-button color="accent">Edit List</button>
+        <button mat-button color="danger" (click)="onDeleteList(i)">Delete List</button>
         <!-- /todoList buttons -->
       </mat-card-actions>
     </form>

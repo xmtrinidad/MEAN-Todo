@@ -53,3 +53,8 @@ module.exports.saveUserTodoList = (user, req) => {
     user.save();
 };
 
+module.exports.removeUserTodoList = (user, req) => {
+    user.todos.splice(req.body.index, 1);
+    user.save();
+};
+

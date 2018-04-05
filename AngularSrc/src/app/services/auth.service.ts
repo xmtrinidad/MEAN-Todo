@@ -48,6 +48,18 @@ export class AuthService {
       {user: this.user.username, todo: todo}, {headers: headers})
   }
 
+  removeUserTodo(index: number) {
+    this.loadToken();
+    this.loadUser();
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.authToken
+    });
+    return this.http.post(
+      'http://localhost:3000/user/delete-todo',
+      {user: this.user.username, index: index}, {headers: headers})
+  }
+
   storeUserData(token, user) {
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));

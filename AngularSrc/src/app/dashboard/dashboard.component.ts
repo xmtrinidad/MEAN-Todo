@@ -16,4 +16,10 @@ export class DashboardComponent implements OnInit {
     this.authService.getUserDashboard().subscribe((data: any) => this.todos = data.user.todos);
   }
 
+  onDeleteList(index: number) {
+    this.authService.removeUserTodo(index).subscribe((data: any) => {
+      // Update todoLists
+      this.todos = data.user.todos
+    });
+  }
 }

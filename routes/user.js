@@ -4,6 +4,7 @@ const passport = require('passport');
 const User = require('../models/user');
 const user_controller = require('../controllers/userController');
 
+// Register a new yser
 router.post('/register', (req, res, next) => {
     // Make new User
     const newUser = new User({
@@ -22,6 +23,7 @@ router.post('/register', (req, res, next) => {
     });
 });
 
+// Authenticate a user trying to log in
 router.post('/authenticate', (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -43,6 +45,7 @@ router.post('/authenticate', (req, res, next) => {
     });
 });
 
+// Add a todoList for the user logged in
 router.post('/add-todo', passport.authenticate('jwt', {session: false}), (req, res) => {
     const username = req.body.user;
     user_controller.getUserByUsername(username, (err, user) => {
@@ -51,6 +54,17 @@ router.post('/add-todo', passport.authenticate('jwt', {session: false}), (req, r
     });
 });
 
+// Add a todoList for the user logged in
+router.post('/delete-todo', passport.authenticate('jwt', {session: false}), (req, res) => {
+    const username = req.body.user;
+    user_controller.getUserByUsername(username, (err, user) => {
+        if (err) throw err;
+        user_controller.removeUserTodoList(user, req);
+        res.json({user: user})
+    });
+});
+
+// Get user dashboard
 router.get('/dashboard', passport.authenticate('jwt', {session: false}), (req, res) => {
     res.json({user: req.user});
 });
