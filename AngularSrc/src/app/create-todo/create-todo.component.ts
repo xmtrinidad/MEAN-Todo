@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ValidateService } from '../services/validate.service';
 import { Todo } from '../models/todo';
 import { CreateTodoService } from '../services/create-todo.service';
 
@@ -14,12 +13,11 @@ export class CreateTodoComponent implements OnInit {
   title = '';
   task = '';
   isEdit = false;
-  todoItems: { task: string, completed: boolean }[];
+  todoItems: {id: number, task: string, completed: boolean }[];
 
 
   constructor(
-    public createTodoService: CreateTodoService,
-    private validateService: ValidateService) {
+    public createTodoService: CreateTodoService) {
   }
 
   // Initialize todoItems

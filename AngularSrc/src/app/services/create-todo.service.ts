@@ -6,18 +6,18 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class CreateTodoService {
   itemToEditIndex: number;
-  todoItem: {task: string, completed: boolean} = {
-    task: '', completed: false
+  todoItems: {id: number, task: string, completed: boolean}[] = [];
+  // Assign nextId the value of -1 if there are no todoItems
+  nextId = this.todoItems.length < 1 ? - 1 : this.todoItems[this.todoItems.length - 1].id;
+  todoItem: {id: number, task: string, completed: boolean} = {
+    id: this.nextId, task: '', completed: false
   };
   // Temporary mock data
-  todoItems: {task: string, completed: boolean}[] = [
-    { task: 'Test task 1', completed: false},
-    { task: 'Test task 2', completed: false},
-    { task: 'Test task 3', completed: false}
-  ];
+
   constructor(
     private authService: AuthService,
-    private validateService: ValidateService) { }
+    private validateService: ValidateService) {
+  }
 
   getTodoItems() {
     return this.todoItems;
@@ -41,11 +41,19 @@ export class CreateTodoService {
     this.itemToEditIndex = undefined;
   }
 
+  /**
+   * Increase id to keep track of individual todoItems
+   * push new todoItem task to list
+   * @param {string} newTask
+   */
   addTodo(newTask: string) {
+    ++this.nextId;
     this.todoItem.task = newTask;
+    this.todoItem.id = this.nextId;
     this.todoItems.push(this.todoItem);
     this.resetEditIndex();
-    this.todoItem = { task: '', completed: false };
+    this.todoItem = { id: this.nextId, task: '', completed: false };
+
   }
 
   deleteTodo() {
@@ -60,6 +68,8 @@ export class CreateTodoService {
 
   resetList() {
     this.todoItems = [];
+    this.nextId = -1;
+    this.todoItem = { id: this.nextId, task: '', completed: false };
   }
 
 }
