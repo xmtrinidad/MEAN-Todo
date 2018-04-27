@@ -5,7 +5,7 @@
     </button>
     <span class="spacer"></span>
     <span>MEAN Todo</span>
-    <div class="Toolbar__add-todo-btn">
+    <div class="Toolbar__add-todo-btn" *ngIf="!userService.isUserLoggedOut()">
       <button [routerLink]="'/dashboard/create'" class="bold-btn" mat-raised-button color="accent">
         <span>Add Todo</span>
         <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>

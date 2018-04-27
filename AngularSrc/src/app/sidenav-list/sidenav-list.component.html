@@ -1,6 +1,7 @@
 <mat-nav-list>
   <ng-container *ngFor="let item of sideNavItems">
     <a
+      *ngIf="item.loggedOut === userService.isUserLoggedOut()"
       (click)="onSideNavItemClick(item)"
       [routerLink]="item.link"
       mat-list-item>

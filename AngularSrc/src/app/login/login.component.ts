@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {User} from "../models/user";
 import {BackEndService} from "../services/back-end.service";
 import {Router} from "@angular/router";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private userService: UserService,
     private backEndService: BackEndService,
     private fb: FormBuilder) { }
 
@@ -41,12 +43,11 @@ export class LoginComponent implements OnInit {
     this.backEndService.authenticateUser(loggingInUser)
       .subscribe((data: any) => {
         if (data.success) {
+          this.userService.storeUserData(data.token, data.user);
           this.router.navigate(['/dashboard']);
         }
       }, (err) => console.log(err));
 
     this.myNgForm.resetForm();
-
-
   }
 }

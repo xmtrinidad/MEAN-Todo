@@ -4,6 +4,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from "./material/material.module";
 import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 import {AppRoutingModule} from "./app-routing.module";
+import { JwtModule } from '@auth0/angular-jwt';
 
 
 
@@ -22,6 +23,11 @@ import { TodoService } from './services/todo.service';
 import { EditComponent } from './dashboard/edit/edit.component';
 import { BackEndService } from './services/back-end.service';
 import {HttpClientModule} from "@angular/common/http";
+import { UserService } from './services/user.service';
+
+export function tokenGetter() {
+  return localStorage.getItem('id_token');
+}
 
 
 
@@ -45,9 +51,14 @@ import {HttpClientModule} from "@angular/common/http";
     FormsModule,
     MaterialModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter
+      }
+    })
   ],
-  providers: [NavService, TodoService, BackEndService],
+  providers: [NavService, TodoService, BackEndService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

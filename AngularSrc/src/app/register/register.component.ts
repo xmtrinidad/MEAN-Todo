@@ -43,13 +43,11 @@ export class RegisterComponent implements OnInit {
 
     this.backEndService.registerUser(registeredUser)
       .subscribe((data: any) => {
+        // Successful login, go to dashboard
         if (data.success) {
           this.router.navigate(['/login']);
         }
       }, (err) => console.log(err));
-
     this.myNgForm.resetForm();
-
-
   }
 }

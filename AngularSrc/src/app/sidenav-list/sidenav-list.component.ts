@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NavItem} from "../models/nav-item";
 import {NavService} from "../services/nav.service";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-sidenav-list',
@@ -12,13 +13,20 @@ export class SidenavListComponent implements OnInit {
   // Nav items populated from service onInit
   sideNavItems: NavItem[];
 
-  constructor(private navService: NavService) { }
+  constructor(
+    public userService: UserService,
+    private navService: NavService) { }
 
   ngOnInit() {
     this.sideNavItems = this.navService.getNavItems();
+    console.log(this.userService.isUserLoggedOut());
   }
 
   onSideNavItemClick(item: NavItem) {
+    console.log(item);
+    if (item.name === 'Logout') {
+      localStorage.clear();
+    }
     this.navService.toggleSideNav();
   }
 }

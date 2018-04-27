@@ -6,14 +6,15 @@ import {LoginComponent} from "./login/login.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {CreateComponent} from "./dashboard/create/create.component";
 import {EditComponent} from "./dashboard/edit/edit.component";
+import {AuthGuard} from "./guards/auth.guard";
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'dashboard/create', component: CreateComponent },
   { path: 'dashboard/edit', component: EditComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: '/register', pathMatch: 'full' }
 ];
 
@@ -23,7 +24,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [AuthGuard],
   declarations: []
 })
 export class AppRoutingModule {
