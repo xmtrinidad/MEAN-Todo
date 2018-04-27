@@ -1,0 +1,22 @@
+<!-- todoItem input -->
+<mat-form-field class="full-width Create-todo_todo-input">
+  <input
+    [(ngModel)]="newTodo"
+    matInput
+    placeholder="Todo">
+</mat-form-field>
+<!-- /todoItem input -->
+
+<!-- todoItem buttons -->
+<div class="Create-todo__buttons">
+  <button (click)="onAddNewTodoItem()" mat-icon-button>
+    <mat-icon aria-label="check icon" color="primary">check</mat-icon>
+  </button>
+  <button (click)="onClearTodoItem()" mat-icon-button>
+    <mat-icon aria-label="close icon">close</mat-icon>
+  </button>
+  <button (click)="onDeleteTodoItem()" mat-icon-button color="warn">
+    <mat-icon aria-label="close icon">delete</mat-icon>
+  </button>
+</div>
+<!-- /todoItem buttons -->

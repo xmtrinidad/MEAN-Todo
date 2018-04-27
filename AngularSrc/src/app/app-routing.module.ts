@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { SignupComponent } from './signup/signup.component';
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { AuthGuard } from './guards/auth.guard';
-import { CreateTodoComponent } from './create-todo/create-todo.component';
+import {RegisterComponent} from "./register/register.component";
+import {LoginComponent} from "./login/login.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
+import {CreateComponent} from "./dashboard/create/create.component";
 
 const routes: Routes = [
-  { path: 'signup', component: SignupComponent },
+  { path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard/create-todo', component: CreateTodoComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard/create', component: CreateComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/signup', pathMatch: 'full' }
+  { path: '**', redirectTo: '/register', pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -22,7 +21,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   exports: [RouterModule],
-  providers: [AuthGuard],
+  providers: [],
   declarations: []
 })
 export class AppRoutingModule {

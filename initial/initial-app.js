@@ -1,11 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const passport = require('passport');
-const userRoutes = require('./routes/user');
-const indexRoutes = require('./routes/index');
-
-// Set up express
-const app = express();
 
 // Mongoose & Database
 const mongoose = require('mongoose');
@@ -23,14 +18,14 @@ mongoose.connection.on('error', (err) => {
 });
 
 // Routes
+const userRoutes = require('./routes/user');
+const indexRoutes = require('./routes/index');
 
-app.use('/user', userRoutes);
-app.use('/', indexRoutes);
+// Set up express
+const app = express();
 
-// CORS
+// Middleware
 app.use(cors());
-
-// JSON
 app.use(express.json());
 
 // Passport

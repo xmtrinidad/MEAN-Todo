@@ -1,0 +1,6 @@
+<mat-selection-list *ngIf="todoItems.length > 0">
+  <mat-list-option
+    [selected]="selectedItem === i"
+    (click)="onTodoItemClick(item, i)"
+    *ngFor="let item of todoItems; let i = index">{{item.task}}</mat-list-option>
+</mat-selection-list>

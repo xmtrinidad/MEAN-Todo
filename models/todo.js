@@ -6,4 +6,4 @@ const TodoSchema = new Schema({
     items: [{ id: Number, task: String, completed: Boolean }]
 });
 
-const Todo = module.exports = mongoose.model('Todo', TodoSchema);
+module.exports = mongoose.model('Todo', TodoSchema);

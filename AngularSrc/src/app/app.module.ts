@@ -1,77 +1,48 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
-import { FlashMessagesModule } from 'angular2-flash-messages';
-import { JwtModule } from '@auth0/angular-jwt';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MaterialModule} from "./material/material.module";
+import {ReactiveFormsModule, FormsModule} from "@angular/forms";
+import {AppRoutingModule} from "./app-routing.module";
 
-export function tokenGetter() {
-  return localStorage.getItem('id_token');
-}
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatButtonModule,
-  MatIconModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatSidenavModule,
-  MatToolbarModule,
-  MatListModule,
-  MatCardModule,
-  MatDividerModule
-} from '@angular/material';
-
-import { AuthService } from './services/auth.service';
-import { NavService } from './services/nav.service';
 
 import { AppComponent } from './app.component';
-import { SignupComponent } from './signup/signup.component';
-import { NavComponent } from './nav/nav.component';
+import { SidenavListComponent } from './sidenav-list/sidenav-list.component';
+
+import {NavService} from "./services/nav.service";
+import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
+import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { SidenavListComponent } from './sidenav-list/sidenav-list.component';
-import { ValidateService } from './services/validate.service';
-import { CreateTodoComponent } from './create-todo/create-todo.component';
-import { CreateTodoService } from './services/create-todo.service';
+import { CreateComponent } from './dashboard/create/create.component';
+import { TodoItemListComponent } from './dashboard/create/todo-item-list/todo-item-list.component';
+import { NewTodoItemComponent } from './dashboard/create/new-todo-item/new-todo-item.component';
+import { TodoService } from './services/todo.service';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignupComponent,
-    NavComponent,
+    SidenavListComponent,
+    NavToolbarComponent,
+    RegisterComponent,
     LoginComponent,
     DashboardComponent,
-    SidenavListComponent,
-    CreateTodoComponent
+    CreateComponent,
+    TodoItemListComponent,
+    NewTodoItemComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-      }
-    }),
-    FlashMessagesModule.forRoot(),
-    HttpClientModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatListModule,
-    MatCardModule,
-    MatDividerModule
+    ReactiveFormsModule,
+    FormsModule,
+    MaterialModule,
+    AppRoutingModule
   ],
-  providers: [AuthService, NavService, ValidateService, CreateTodoService],
+  providers: [NavService, TodoService],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }

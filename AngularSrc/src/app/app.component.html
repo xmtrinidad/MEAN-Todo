@@ -1,16 +1,16 @@
-<mat-drawer-container (backdropClick)="onBackdropClick($event)" class="example-container">
-  <mat-drawer [opened]="navService.getSideMenuStatus()" class="example-sidenav">
-
+<mat-sidenav-container (backdropClick)="onBackdropClicked()" class="example-container">
+  <mat-sidenav [opened]="navService.getSideNavStatus()">
     <app-sidenav-list></app-sidenav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!-- Top Nav Toolbar -->
+    <app-nav-toolbar></app-nav-toolbar>
 
-  </mat-drawer>
+    <main class="container">
 
-  <!-- Top Nav Toolbar -->
-  <app-nav></app-nav>
+      <router-outlet></router-outlet>
 
-  <main class="container">
-    <flash-messages></flash-messages>
-    <router-outlet></router-outlet>
-  </main>
+    </main>
 
-</mat-drawer-container>
+  </mat-sidenav-content>
+</mat-sidenav-container>

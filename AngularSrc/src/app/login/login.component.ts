@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/user';
-import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
-import { ValidateService } from '../services/validate.service';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {User} from "../models/user";
 
 @Component({
   selector: 'app-login',
@@ -10,45 +8,33 @@ import { ValidateService } from '../services/validate.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  username: string;
-  password: string;
+  loginForm: FormGroup;
 
-  constructor(
-      private validateService: ValidateService,
-      private router: Router,
-      private authService: AuthService) {
-  }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-    if (!this.authService.loggedIn()) {
-      this.router.navigate(['/dashboard']);
-    }
+    this.createForm();
   }
 
-  onLoginSubmit() {
-    if (this.username === undefined || this.password === undefined) {
-      this.validateService.formSubmitMessage('Empty fields');
-      this.clearInputs();
-      return;
-    }
-    const user: User = {
-      username: this.username,
-      password: this.password
-    };
-    this.authService.loginUser(user).subscribe((data: any) => {
-      if (data.success === true) {
-        this.authService.storeUserData(data.token, data.user);
-        this.validateService.formSubmitMessage('You are now logged in!', 'success');
-        this.router.navigate(['dashboard']);
-      } else {
-        this.validateService.formSubmitMessage('Invalid credentials');
-        this.clearInputs();
-      }
+  /**
+   * Create the form to use in the HTML template
+   */
+  createForm() {
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
-  clearInputs() {
-    this.username = undefined;
-    this.password = undefined;
+  onLoginSubmit() {
+    const loggingInUser: User = {
+      username: this.loginForm.value.username,
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password
+    };
+
+    this.loginForm.reset();
+
+    console.log(loggingInUser);
   }
 }

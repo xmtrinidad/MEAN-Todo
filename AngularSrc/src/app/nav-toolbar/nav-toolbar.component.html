@@ -1,0 +1,15 @@
+<mat-toolbar class="Toolbar" color="primary">
+  <mat-toolbar-row>
+    <button class="Toolbar__menu-btn" (click)="onToolbarIconClick()" mat-icon-button>
+      <mat-icon aria-label="icon-button with a menu icon">menu</mat-icon>
+    </button>
+    <span class="spacer"></span>
+    <span>MEAN Todo</span>
+    <div class="Toolbar__add-todo-btn">
+      <button [routerLink]="'/dashboard/create'" class="bold-btn" mat-raised-button color="accent">
+        <span>Add Todo</span>
+        <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

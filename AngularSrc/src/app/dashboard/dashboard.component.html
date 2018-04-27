@@ -1,28 +1,19 @@
-<div class="Todos">
-  <mat-card *ngFor="let todo of todos; let i = index">
-    <form>
-
-      <!-- todoList Title -->
-      <mat-card-title>
-        {{ todo.title }}
-      </mat-card-title>
-      <!-- /todoList Title -->
-
+<div class="Dashboard">
+  <h2 class="mat-display-3 text-center">Todo Lists</h2>
+  <div class="TodoLists">
+    <mat-card class="TodoList" *ngFor="let todoList of todoLists">
+      <mat-card-title>{{todoList.title}}</mat-card-title>
       <mat-card-content>
-        <!-- todoItems -->
+
         <mat-selection-list>
-          <mat-list-option *ngFor="let todoItem of todo.items">{{ todoItem.task }}</mat-list-option>
+          <mat-list-option *ngFor="let item of todoList.items">{{item.task}}</mat-list-option>
         </mat-selection-list>
-        <!-- /todoItems -->
+
       </mat-card-content>
-
       <mat-card-actions>
-        <!-- todoList buttons -->
-        <button mat-raised-button color="accent">Edit List</button>
-        <button mat-button color="danger" (click)="onDeleteList(i)">Delete List</button>
-        <!-- /todoList buttons -->
+        <button [routerLink]="'/dashboard/create'" (click)="onEditTodo(todoList)" mat-button>Edit</button>
+        <button (click)="onDeleteTodo()" mat-button>Delete</button>
       </mat-card-actions>
-    </form>
-  </mat-card>
+    </mat-card>
+  </div>
 </div>
-

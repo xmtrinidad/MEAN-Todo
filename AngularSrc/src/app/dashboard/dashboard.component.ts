@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { Todo } from '../models/todo';
+import {TodoService} from "../services/todo.service";
+import {Todo} from "../models/todo";
 
 @Component({
   selector: 'app-dashboard',
@@ -8,18 +8,19 @@ import { Todo } from '../models/todo';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  todos: Todo[];
+  todoLists: Todo[] = [];
 
-  constructor(private authService: AuthService) { }
+  constructor(private todoService: TodoService) { }
 
   ngOnInit() {
-    this.authService.getUserDashboard().subscribe((data: any) => this.todos = data.user.todos);
+    this.todoLists = this.todoService.getTodoLists();
   }
 
-  onDeleteList(index: number) {
-    this.authService.removeUserTodo(index).subscribe((data: any) => {
-      // Update todoLists
-      this.todos = data.user.todos
-    });
+  onEditTodo(todoListClicked: Todo) {
+    this.todoService.setTodoList(todoListClicked);
+  }
+
+  onDeleteTodo() {
+
   }
 }
