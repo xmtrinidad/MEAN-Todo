@@ -1,10 +1,15 @@
-<form [formGroup]="registerForm" class="signup-form" (ngSubmit)="onFormSubmit()">
+<form
+  [formGroup]="registerForm"
+  class="signup-form"
+  (ngSubmit)="registerForm.valid && onFormSubmit()">
   <mat-form-field class="full-width">
     <input
       formControlName="username"
       type="text"
       matInput
       placeholder="Username">
+    <mat-error
+      *ngIf="registerForm.controls.username.hasError('required')">Enter a username</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <input
@@ -12,6 +17,8 @@
       type="email"
       matInput
       placeholder="Email">
+    <mat-error
+      *ngIf="registerForm.controls.email.hasError('required') || registerForm.controls.email.hasError('email')">Enter a valid email</mat-error>
   </mat-form-field>
   <mat-form-field class="full-width">
     <input
@@ -19,6 +26,8 @@
       type="password"
       matInput
       placeholder="Password">
+    <mat-error
+      *ngIf="registerForm.controls.password.hasError('required')">Enter a password</mat-error>
   </mat-form-field>
   <button type="submit" mat-button color="accent">Submit</button>
 </form>

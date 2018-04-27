@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
     this.todoService.setTodoList(todoListClicked);
   }
 
-  onDeleteTodo() {
-
+  onDeleteTodo(index: number) {
+    this.todoService.deleteTodoList(index);
   }
 }

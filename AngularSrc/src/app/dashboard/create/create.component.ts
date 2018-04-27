@@ -10,7 +10,7 @@ import {Todo} from "../../models/todo";
 export class CreateComponent implements OnInit {
   title = '';
 
-  constructor(private todoService: TodoService) { }
+  constructor(public todoService: TodoService) { }
 
   ngOnInit() {
     this.todoService.resetTodoList();

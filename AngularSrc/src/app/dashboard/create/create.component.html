@@ -19,7 +19,7 @@
     <app-new-todo-item></app-new-todo-item>
 
   <mat-card-actions>
-    <button (click)="onCreateTodo()" mat-button>Create</button>
+    <button [disabled]="todoService.getTodoItems().length === 0" (click)="onCreateTodo()" mat-button>Create</button>
     <button (click)="onResetTodoClick()" mat-button>Reset</button>
   </mat-card-actions>
 </mat-card>
