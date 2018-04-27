@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {User} from "../models/user";
 
@@ -8,6 +8,7 @@ import {User} from "../models/user";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  @ViewChild('f') myNgForm;
   registerForm: FormGroup;
 
   constructor(private fb: FormBuilder) { }
@@ -34,7 +35,7 @@ export class RegisterComponent implements OnInit {
       password: this.registerForm.value.password
     };
 
-    this.registerForm.reset();
+    this.myNgForm.resetForm();
 
     console.log(registeredUser);
   }

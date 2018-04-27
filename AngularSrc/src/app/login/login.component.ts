@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {User} from "../models/user";
 
@@ -8,6 +8,7 @@ import {User} from "../models/user";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  @ViewChild('f') myNgForm;
   loginForm: FormGroup;
 
   constructor(private fb: FormBuilder) { }
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.value.password
     };
 
-    this.loginForm.reset();
+    this.myNgForm.resetForm();
 
     console.log(loggingInUser);
   }
