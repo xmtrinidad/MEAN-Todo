@@ -19,6 +19,7 @@ import { CreateComponent } from './dashboard/create/create.component';
 import { TodoItemListComponent } from './dashboard/create/todo-item-list/todo-item-list.component';
 import { NewTodoItemComponent } from './dashboard/create/new-todo-item/new-todo-item.component';
 import { TodoService } from './services/todo.service';
+import { EditComponent } from './dashboard/edit/edit.component';
 
 
 
@@ -32,7 +33,8 @@ import { TodoService } from './services/todo.service';
     DashboardComponent,
     CreateComponent,
     TodoItemListComponent,
-    NewTodoItemComponent
+    NewTodoItemComponent,
+    EditComponent
   ],
   imports: [
     BrowserModule,

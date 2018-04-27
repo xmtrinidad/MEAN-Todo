@@ -1,0 +1,25 @@
+<mat-card class="New-TodoList">
+  <mat-card-title>
+
+    <mat-form-field class="full-width">
+      <input
+        [(ngModel)]="title"
+        name="title"
+        matInput
+        placeholder="Title">
+    </mat-form-field>
+
+  </mat-card-title>
+  <mat-card-content>
+
+    <app-todo-item-list></app-todo-item-list>
+
+  </mat-card-content>
+
+  <app-new-todo-item></app-new-todo-item>
+
+  <mat-card-actions>
+    <button [routerLink]="'/dashboard'" (click)="onSaveEdit()" mat-button>Save</button>
+    <button (click)="onResetTodoClick()" mat-button>Reset</button>
+  </mat-card-actions>
+</mat-card>

@@ -5,12 +5,14 @@ import {RegisterComponent} from "./register/register.component";
 import {LoginComponent} from "./login/login.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {CreateComponent} from "./dashboard/create/create.component";
+import {EditComponent} from "./dashboard/edit/edit.component";
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'dashboard/create', component: CreateComponent },
+  { path: 'dashboard/edit', component: EditComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/register', pathMatch: 'full' }
 ];

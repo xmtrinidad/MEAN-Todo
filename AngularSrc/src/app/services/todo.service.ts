@@ -21,6 +21,10 @@ export class TodoService {
     return TODO_LISTS;
   }
 
+  /**
+   * Set todoList to edit
+   * @param TodoList - the todoSelected
+   */
   setTodoList(todo: Todo) {
     this.todoList = todo;
     this.todoItems = this.todoList.items;
@@ -87,6 +91,13 @@ export class TodoService {
    */
   getChangedTodoItemList() {
     return this._listListener;
+  }
+
+  saveEditedTodo(updatedTodo: Todo) {
+    const index = TODO_LISTS.indexOf(this.todoList);
+    TODO_LISTS[index] = updatedTodo;
+    this.todoList = undefined;
+    this.resetTodoList();
   }
 
   resetTodoList() {

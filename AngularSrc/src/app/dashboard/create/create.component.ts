@@ -13,7 +13,7 @@ export class CreateComponent implements OnInit {
   constructor(private todoService: TodoService) { }
 
   ngOnInit() {
-    this.title = !this.todoService.getTodo() ? '' : this.todoService.getTodo().title;
+    this.todoService.resetTodoList();
   }
 
 
