@@ -22,11 +22,6 @@ mongoose.connection.on('error', (err) => {
     console.log(`Database error: ${err}`);
 });
 
-// Routes
-
-app.use('/user', userRoutes);
-app.use('/', indexRoutes);
-
 // CORS
 app.use(cors());
 
@@ -37,6 +32,11 @@ app.use(express.json());
 require('./config/passport');
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Routes
+app.use('/user', userRoutes);
+app.use('/', indexRoutes);
+
 
 // Server port
 const port = 3000;

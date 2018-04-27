@@ -20,6 +20,8 @@ import { TodoItemListComponent } from './dashboard/create/todo-item-list/todo-it
 import { NewTodoItemComponent } from './dashboard/create/new-todo-item/new-todo-item.component';
 import { TodoService } from './services/todo.service';
 import { EditComponent } from './dashboard/edit/edit.component';
+import { BackEndService } from './services/back-end.service';
+import {HttpClientModule} from "@angular/common/http";
 
 
 
@@ -42,9 +44,10 @@ import { EditComponent } from './dashboard/edit/edit.component';
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [NavService, TodoService],
+  providers: [NavService, TodoService, BackEndService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
