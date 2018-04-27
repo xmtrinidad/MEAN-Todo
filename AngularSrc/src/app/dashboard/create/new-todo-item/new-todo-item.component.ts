@@ -7,7 +7,6 @@ import {TodoService} from "../../../services/todo.service";
   styleUrls: ['./new-todo-item.component.css']
 })
 export class NewTodoItemComponent implements OnInit {
-
   newTodo = '';
 
   constructor(private todoService: TodoService) { }

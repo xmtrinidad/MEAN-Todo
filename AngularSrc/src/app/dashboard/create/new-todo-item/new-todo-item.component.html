@@ -9,13 +9,13 @@
 
 <!-- todoItem buttons -->
 <div class="Create-todo__buttons">
-  <button (click)="onAddNewTodoItem()" mat-icon-button>
+  <button [disabled]="newTodo.trim() === ''" (click)="onAddNewTodoItem()" mat-icon-button>
     <mat-icon aria-label="check icon" color="primary">check</mat-icon>
   </button>
-  <button (click)="onClearTodoItem()" mat-icon-button>
+  <button [disabled]="newTodo.trim() === ''" (click)="onClearTodoItem()" mat-icon-button>
     <mat-icon aria-label="close icon">close</mat-icon>
   </button>
-  <button (click)="onDeleteTodoItem()" mat-icon-button color="warn">
+  <button [disabled]="newTodo.trim() === ''" (click)="onDeleteTodoItem()" mat-icon-button color="warn">
     <mat-icon aria-label="close icon">delete</mat-icon>
   </button>
 </div>

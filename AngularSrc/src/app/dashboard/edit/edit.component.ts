@@ -32,4 +32,9 @@ export class EditComponent implements OnInit {
     };
     this.todoService.saveEditedTodo(todo);
   }
+
+  onResetTodoClick() {
+    this.title = '';
+    this.todoService.resetTodoList();
+  }
 }

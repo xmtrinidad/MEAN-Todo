@@ -7,7 +7,7 @@ import {TODO_LISTS} from "../mock-data";
 export class TodoService {
   private todoList: Todo;
   private todoItems = [];
-  private selectedTodoItem: {id: number; task: string, completed: boolean};
+  selectedTodoItem: {id: number; task: string, completed: boolean};
   private _selectedListener = new Subject<{id: number; task: string, completed: boolean}>();
   private _listListener = new Subject<{id: number; task: string, completed: boolean}[]>();
 
@@ -95,9 +95,17 @@ export class TodoService {
 
   saveEditedTodo(updatedTodo: Todo) {
     const index = TODO_LISTS.indexOf(this.todoList);
-    TODO_LISTS[index] = updatedTodo;
+    if (updatedTodo.items.length === 0) {
+      this.deleteTodoList(index);
+    } else {
+      TODO_LISTS[index] = updatedTodo;
+    }
     this.todoList = undefined;
     this.resetTodoList();
+  }
+
+  deleteTodoList(index: number) {
+    TODO_LISTS.splice(index, 1);
   }
 
   resetTodoList() {
