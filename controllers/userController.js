@@ -63,6 +63,17 @@ exports.user_authenticate = (req, res) => {
     });
 };
 
+exports.user_save_todo = (req, res) => {
+    User.findOne({username: req.user.username}, (err, user) => {
+        if (err) throw err;
+        user.todos.push(req.body);
+        user.save((err, user) => {
+            if (err) throw err;
+            res.json({success: true});
+        });
+    });
+};
+
 exports.user_get_todos = (req, res) => {
     res.json({todos: req.user.todos});
 };

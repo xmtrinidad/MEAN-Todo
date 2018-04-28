@@ -23,7 +23,6 @@ export class SidenavListComponent implements OnInit {
   }
 
   onSideNavItemClick(item: NavItem) {
-    console.log(item);
     if (item.name === 'Logout') {
       localStorage.clear();
     }

@@ -3,6 +3,7 @@ import {Todo} from "../models/todo";
 import {Subject} from "rxjs/Subject";
 import {TODO_LISTS} from "../mock-data";
 import {BackEndService} from "./back-end.service";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class TodoService {
@@ -13,7 +14,9 @@ export class TodoService {
   private _selectedListener = new Subject<{id: number; task: string, completed: boolean}>();
   private _listListener = new Subject<{id: number; task: string, completed: boolean}[]>();
 
-  constructor(private backEndService: BackEndService) {
+  constructor(
+    private router: Router,
+    private backEndService: BackEndService) {
   }
 
   setTodoLists(todos: Todo[]) {
@@ -36,10 +39,13 @@ export class TodoService {
    * Create new list
    */
   createTodo(todo: Todo) {
-    TODO_LISTS.push(todo);
-    this.resetTodoList();
-    // TODO: Back-end stuff
-
+    this.backEndService.saveUserTodo(todo).subscribe((data: any) => {
+      if (data.success) {
+        this.todoLists.push(todo);
+        this.router.navigate(['/dashboard']);
+        this.resetTodoList();
+      }
+    }, (err) => console.log(err));
   }
 
   /**
