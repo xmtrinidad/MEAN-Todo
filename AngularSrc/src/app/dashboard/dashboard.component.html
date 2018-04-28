@@ -1,6 +1,6 @@
 <div class="Dashboard">
   <h2 class="mat-display-3 text-center">Todo Lists</h2>
-  <div class="TodoLists">
+  <div class="TodoLists" *ngIf="todoLists">
     <mat-card class="TodoList" *ngFor="let todoList of todoLists; let i = index">
       <mat-card-title>{{todoList.title}}</mat-card-title>
       <mat-card-content>

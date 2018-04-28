@@ -19,7 +19,6 @@ export class SidenavListComponent implements OnInit {
 
   ngOnInit() {
     this.sideNavItems = this.navService.getNavItems();
-    console.log(this.userService.isUserLoggedOut());
   }
 
   onSideNavItemClick(item: NavItem) {

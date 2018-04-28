@@ -74,6 +74,18 @@ exports.user_save_todo = (req, res) => {
     });
 };
 
+// Delete user todoList by index
+exports.user_delete_todo = (req, res) => {
+    User.findOne({username: req.user.username}, (err, user) => {
+        if (err) throw err;
+        user.todos.splice(req.body.index, 1);
+        user.save((err, user) => {
+            if (err) throw err;
+            res.json({success: true});
+        });
+    });
+};
+
 exports.user_get_todos = (req, res) => {
     res.json({todos: req.user.todos});
 };

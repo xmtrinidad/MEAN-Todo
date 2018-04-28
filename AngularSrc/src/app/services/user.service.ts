@@ -3,7 +3,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class UserService {
-  authToken = localStorage.getItem('id_token');
 
   constructor(public jwtHelper: JwtHelperService) { }
 
@@ -18,11 +17,12 @@ export class UserService {
   }
 
   isUserLoggedOut() {
+    console.log(`Token expired? ${this.jwtHelper.isTokenExpired()}`);
     return this.jwtHelper.isTokenExpired();
   }
 
   getUserToken() {
-    return this.authToken;
+    return localStorage.getItem('id_token');
   }
 
 }

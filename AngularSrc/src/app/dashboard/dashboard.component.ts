@@ -9,7 +9,7 @@ import {BackEndService} from "../services/back-end.service";
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  todoLists: Todo[] = [];
+  todoLists: Todo[];
 
   constructor(
     private backEndService: BackEndService,

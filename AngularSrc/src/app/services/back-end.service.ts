@@ -31,8 +31,7 @@ export class BackEndService {
       'Content-Type':  'application/json',
       'Authorization': this.userService.getUserToken()
     });
-    return this.http.get('http://localhost:3000/user/todos', {headers: headers})
-      .map(res => res);
+    return this.http.get('http://localhost:3000/user/todos', {headers: headers});
   }
 
   saveUserTodo(todo: Todo) {
@@ -43,8 +42,13 @@ export class BackEndService {
     return this.http.post('http://localhost:3000/user/save', todo, {headers: headers});
   }
 
-
-
-
+  deleteUserTodo(index: number) {
+    console.log(index);
+    const headers = new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': this.userService.getUserToken()
+    });
+    return this.http.post('http://localhost:3000/user/delete', {index: index}, {headers: headers});
+  }
 
 }

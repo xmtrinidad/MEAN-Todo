@@ -109,7 +109,8 @@ export class TodoService {
   }
 
   deleteTodoList(index: number) {
-    TODO_LISTS.splice(index, 1);
+    this.todoLists.splice(index, 1);
+    this.backEndService.deleteUserTodo(index).subscribe(data => console.log(data));
   }
 
   resetTodoList() {
