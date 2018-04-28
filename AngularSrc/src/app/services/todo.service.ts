@@ -2,25 +2,23 @@ import { Injectable } from '@angular/core';
 import {Todo} from "../models/todo";
 import {Subject} from "rxjs/Subject";
 import {TODO_LISTS} from "../mock-data";
+import {BackEndService} from "./back-end.service";
 
 @Injectable()
 export class TodoService {
+  private todoLists: Todo[] = [];
   private todoList: Todo;
   private todoItems = [];
   selectedTodoItem: {id: number; task: string, completed: boolean};
   private _selectedListener = new Subject<{id: number; task: string, completed: boolean}>();
   private _listListener = new Subject<{id: number; task: string, completed: boolean}[]>();
 
-  constructor() {
+  constructor(private backEndService: BackEndService) {
   }
 
-  /**
-   * Get all todoLists
-   */
-  getTodoLists() {
-    return TODO_LISTS;
+  setTodoLists(todos: Todo[]) {
+    this.todoLists = todos;
   }
-
   /**
    * Set todoList to edit
    * @param TodoList - the todoSelected

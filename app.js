@@ -29,7 +29,7 @@ app.use(cors());
 app.use(express.json());
 
 // Passport
-require('./config/passport');
+require('./config/passport')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 

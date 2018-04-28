@@ -4,6 +4,7 @@ import {User} from "../models/user";
 import {BackEndService} from "../services/back-end.service";
 import {Router} from "@angular/router";
 import {UserService} from "../services/user.service";
+import {TodoService} from "../services/todo.service";
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private todoService: TodoService,
     private userService: UserService,
     private backEndService: BackEndService,
     private fb: FormBuilder) { }

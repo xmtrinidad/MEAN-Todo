@@ -63,6 +63,6 @@ exports.user_authenticate = (req, res) => {
     });
 };
 
-exports.user_get_profile = (req, res) => {
-    res.send('NOT IMPLEMENTED: User Profile GET');
+exports.user_get_todos = (req, res) => {
+    res.json({todos: req.user.todos});
 };

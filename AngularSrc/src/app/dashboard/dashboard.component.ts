@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TodoService} from "../services/todo.service";
 import {Todo} from "../models/todo";
+import {BackEndService} from "../services/back-end.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -10,10 +11,15 @@ import {Todo} from "../models/todo";
 export class DashboardComponent implements OnInit {
   todoLists: Todo[] = [];
 
-  constructor(private todoService: TodoService) { }
+  constructor(
+    private backEndService: BackEndService,
+    private todoService: TodoService) { }
 
   ngOnInit() {
-    this.todoLists = this.todoService.getTodoLists();
+    this.backEndService.getUserTodos().subscribe((data: any) => {
+      this.todoLists = data.todos;
+      this.todoService.setTodoLists(data.todos);
+    });
   }
 
   onEditTodo(todoListClicked: Todo) {
